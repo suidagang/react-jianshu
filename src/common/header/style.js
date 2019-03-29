@@ -10,18 +10,18 @@ export const HeaderWapper = styled.div`
 export const NavSearchBox = styled.div`
     position:relative;
     float:left;
-    .search-enter{
+    .fade-enter{
         width:160px;
         transition:all .2s ease-out;
     }
-    .search-enter-active{
+    .fade-enter-active{
         width:240px;
     }
-    .search-exit{
+    .fade-exit{
         width:240px;
         transition:all .2s ease-out;
     }
-    .search-exit-active{
+    .fade-exit-active{
         width:160px;
     }
     .iconfont{

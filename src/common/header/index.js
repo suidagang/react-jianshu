@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { CSSTransition } from 'react-transition-group';
+import { CSSTransition } from 'react-transition-group'
+
 import {HeaderWapper,Logo,Nav,NavItem,NavSearch,Addition,Button,NavSearchBox} from './style';
 
 class Header extends Component {
@@ -21,13 +22,14 @@ class Header extends Component {
                 <NavItem className='right'>搜索</NavItem>
                 <NavItem className='right iconfont iconAa'></NavItem>
                 <NavSearchBox>
-                  {/* <CSSTransition timeout={{ enter: 200, exit: 300 }} in={this.state.focuse} classNames='search'> */}
-
-                  {/* </CSSTransition> */}
-                    <NavSearch onBlur = {this.inputBlur} onFocus = {this.inputFocus} className={this.state.focuse?'focuse':''}></NavSearch>
-                    <i className={this.state.focuse?'focuse iconfont iconsearch':'iconfont iconsearch'} ></i>
-                 
-                </NavSearchBox>
+                    <CSSTransition 
+                    in={ this.state.focuse }
+                    timeout={ 200 }
+                    classNames='fade'>
+                      <NavSearch onBlur = {this.inputBlur} onFocus = {this.inputFocus} className={this.state.focuse?'focuse':''}></NavSearch>
+                    </CSSTransition>
+                      <i className={this.state.focuse?'focuse iconfont iconsearch':'iconfont iconsearch'} ></i>
+                  </NavSearchBox>
             </Nav>
             <Addition>
                 <Button className='writting'>
