@@ -1,10 +1,45 @@
 import styled from 'styled-components';
 import logoPic from '../../statics/logo.png';
+
 export const HeaderWapper = styled.div`
     position:relative;
     height: 58px;
     width: 100%;
     border-bottom:1px solid #f0f0f0;
+`;
+export const NavSearchBox = styled.div`
+    position:relative;
+    float:left;
+    .search-enter{
+        width:160px;
+        transition:all .2s ease-out;
+    }
+    .search-enter-active{
+        width:240px;
+    }
+    .search-exit{
+        width:240px;
+        transition:all .2s ease-out;
+    }
+    .search-exit-active{
+        width:160px;
+    }
+    .iconfont{
+        position:absolute;
+        right:7px;
+        bottom:5px;
+        width:30px;
+        height:30px;
+        line-height:30px;
+        text-align:center;
+        border-radius:15px;
+        &.focuse{
+            background:#777;
+            color:#fff;
+        }
+    }
+    
+    
 `;
 export const Logo = styled.a`
     position:absolute;
@@ -50,18 +85,21 @@ export const NavSearch = styled.input.attrs({
     placeholder:"搜索"
 })`
     width:160px;
-    height:30px;
+    height:38px;
     border:none;
     padding:0 20px;
     box-sizing:border-box;
     outline:none;
     border-radius:19px;
     background:#eee;
-    margin-top:14px;
+    margin-top:9px;
     font-size:14px;
     margin-left:20px;
     &::placeholder{
         color:#999;
+    }
+    &.focuse{
+        width:260px;
     }
 `;
 export const NavItem = styled.div`
