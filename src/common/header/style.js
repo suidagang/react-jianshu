@@ -20,6 +20,7 @@ export const NavSearchBox = styled.div`
         line-height:30px;
         text-align:center;
         border-radius:15px;
+        color:#969696;
         &.focuse{
             background:#777;
             color:#fff;
