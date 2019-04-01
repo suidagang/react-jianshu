@@ -7,23 +7,27 @@ import {HeaderWapper,Logo,Nav,NavItem,NavSearch,Addition,Button,NavSearchBox,Sea
 class Header extends Component {
     getListArea () {
         // 优化
-        const { focuse , list } = this.props;
-        if(focuse){
+        const { focuse , list , mouseIn , page , total, totalPage ,handerMouseEnter,handerMouseLeave,handerPageChange} = this.props;
+        const pageList = [];
+        const newList = list.toJS();
+        if(newList.length){
+            for ( let i = ( (page-1) * 10 );i < ( page  * 10 > total?total: page * 10); i++){
+                pageList.push(
+                    <SearchInfoItem key = {newList[i]} >{newList[i]}</SearchInfoItem>
+                )
+            };
+        };
+        if(focuse || mouseIn){
             return (
-                <SearchInfo>
+                <SearchInfo onMouseEnter = {handerMouseEnter} onMouseLeave = {handerMouseLeave}>
                     <SearchInfoTitle>
                         热门搜索
-                        <SearchInfoSwitch>
-                            换一批
+                        <SearchInfoSwitch onClick = {() => handerPageChange(page,totalPage,this.spinIcon)}>
+                            <i ref={(icon) =>{ this.spinIcon = icon}} className ='iconfont iconspin spin'></i>
+                            换一批 
                         </SearchInfoSwitch>
                     </SearchInfoTitle>
-                    <div>
-                        {
-                            list.map((item) => {
-                                return <SearchInfoItem key={item}>{item}</SearchInfoItem>
-                            })
-                        }
-                    </div>
+                    <div>{ pageList }</div>
                 </SearchInfo>
             )
         }else{
@@ -32,7 +36,7 @@ class Header extends Component {
     }
     render () {
         // 优化
-        const { focuse , list ,inputBlur,inputFocus} = this.props;
+        const { focuse  ,inputBlur,inputFocus ,list} = this.props;
         return (
             <HeaderWapper>
                 <Logo href='/' />
@@ -46,9 +50,9 @@ class Header extends Component {
                         in={ focuse }
                         timeout={ 200 }
                         classNames='fade'>
-                            <NavSearch onBlur = {inputBlur} onFocus = {inputFocus} className={focuse?'focuse':''}></NavSearch>
+                            <NavSearch onBlur = {inputBlur} onFocus = { () =>inputFocus(list)} className={focuse?'focuse':''}></NavSearch>
                         </CSSTransition>
-                        <i className={focuse?'focuse iconfont iconsearch':'iconfont iconsearch'} ></i>
+                        <i className={focuse?'focuse iconfont iconsearch zoom':'iconfont iconsearch zoom'} ></i>
                         {this.getListArea(focuse)}
                     </NavSearchBox>
                 </Nav>
@@ -66,19 +70,44 @@ const mapStateToProps = (state) => {
     return {
         //immutable 两种写法
         focuse:state.get('header').get('focuse'),
-        list:state.getIn(['header','list'])
+        list:state.getIn(['header','list']),
+        page:state.getIn(['header','page']),
+        totalPage:state.getIn(['header','totalPage']),
+        total:state.getIn(['header','total']),
+        mouseIn:state.getIn(['header','mouseIn']),
     }
 }
 const mapDispathToProps = (dispatch) => {
   return {
-    inputFocus () {
-        dispatch(actionCreators.getList());
+    inputFocus (list) {
+        if(list.size <= 0){
+            dispatch(actionCreators.getList());
+        };
         dispatch(actionCreators.searchFocuse());
     },
     inputBlur () {
         dispatch(actionCreators.searchBlur());
+    },
+    handerMouseEnter () {
+        dispatch(actionCreators.mouseEnter())
+    },
+    handerMouseLeave () {
+        dispatch(actionCreators.mouseLeave())
+    },
+    handerPageChange (page,totalPage,spinIcon) {
+        let originAngle = spinIcon.style.transform.replace(/[^0-9]/ig,'');
+        if(originAngle) {
+            originAngle = parseInt(originAngle,10);
+        }else{
+            originAngle = 0;
+        };
+        spinIcon.style.transform = 'rotate('+(originAngle+360)+'deg)';
+        if(page<totalPage){
+            dispatch(actionCreators.changePage((page+1)));
+        }else{
+            dispatch(actionCreators.changePage(1))
+        };
     }
-
   }
 }
 export default connect(mapStateToProps,mapDispathToProps) (Header);
