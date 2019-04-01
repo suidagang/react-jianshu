@@ -10,20 +10,7 @@ export const HeaderWapper = styled.div`
 export const NavSearchBox = styled.div`
     position:relative;
     float:left;
-    .fade-enter{
-        width:160px;
-        transition:all .2s ease-out;
-    }
-    .fade-enter-active{
-        width:240px;
-    }
-    .fade-exit{
-        width:240px;
-        transition:all .2s ease-out;
-    }
-    .fade-exit-active{
-        width:160px;
-    }
+    
     .iconfont{
         position:absolute;
         right:7px;
@@ -101,6 +88,18 @@ export const NavSearch = styled.input.attrs({
     &.focuse{
         width:260px;
     }
+    &.fade-enter{
+        transition:all .4s ease;
+    }
+    &.fade-enter-active{
+        width:240px;
+    }
+    &.fade-exit{
+        transition:all .4s ease;
+    }
+    &.fade-exit-active{
+        width:160px;
+    }
 `;
 export const NavItem = styled.div`
     line-height:56px;
@@ -118,3 +117,36 @@ export const NavItem = styled.div`
        color:#ea6f5a;
    }
 `;
+export const SearchInfo = styled.div`
+   position:absolute;
+   left:20px;
+   top:56px;
+   width:240px;
+   
+   padding:0 20px;
+   background-color: #fff;
+   box-shadow: 0 0 8px rgba(0,0,0,.2);
+`
+export const SearchInfoTitle = styled.div`
+   margin-top:20px;
+   margin-bottom:15px;
+   line-height:20px;
+   font-size:14px;
+   color:#969696;
+`
+export const SearchInfoSwitch = styled.span`
+   float:right;
+   font-size:14px;
+`
+export const SearchInfoItem = styled.a`
+   float:left;
+   font-size:12px;
+   padding:0 5px;
+   line-height:20px;
+   border:1px solid #ddd;
+   color:#787878;
+   border-radius:3px;
+   display:block;
+   margin-right:10px;
+   margin-bottom:10px;
+`
